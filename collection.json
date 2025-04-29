@@ -1,0 +1,75 @@
+{
+    "info": {
+      "name": "TOEFL Microservices",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "_postman_id": "e9b0348e-abc1-4b91-81c3-123456789000"
+    },
+    "item": [
+      {
+        "name": "Get Questions",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8002/api/test/questions",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8002",
+            "path": ["api", "test", "questions"]
+          }
+        }
+      },
+      {
+        "name": "Submit Answers",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"user_id\": 1,\n  \"answers\": {\n    \"1\": 2\n  }\n}"
+          },
+          "url": {
+            "raw": "http://localhost:8002/api/test/submit",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8002",
+            "path": ["api", "test", "submit"]
+          }
+        }
+      },
+      {
+        "name": "Get User Profile",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8001/api/user/profile?user_id=1",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8001",
+            "path": ["api", "user", "profile"],
+            "query": [{ "key": "user_id", "value": "1" }]
+          }
+        }
+      },
+      {
+        "name": "Update User Score",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"user_id\": 1,\n  \"score\": 5\n}"
+          },
+          "url": {
+            "raw": "http://localhost:8001/api/user/update_score",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8001",
+            "path": ["api", "user", "update_score"]
+          }
+        }
+      }
+    ]
+  }
+  
