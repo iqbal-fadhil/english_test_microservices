@@ -1,5 +1,15 @@
 <!-- frontend/login.php -->
-<form method="POST" action="login_process.php">
-  <input type="text" name="username" placeholder="Username" required>
-  <input type="submit" value="Login">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <form method="POST" action="login_process.php">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+    <br><br>
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>
