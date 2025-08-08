@@ -66,9 +66,38 @@ func validateToken(token string) (string, bool, error) {
     return result.Username, result.IsStaff, err
 }
 
+// func createQuestionHandler(w http.ResponseWriter, r *http.Request) {
+//     token := r.URL.Query().Get("token")
+//     username, isStaff, err := validateToken(token)
+//     if err != nil || !isStaff {
+//         http.Error(w, "Unauthorized", http.StatusUnauthorized)
+//         return
+//     }
+
+//     var q NewQuestionRequest
+//     err = json.NewDecoder(r.Body).Decode(&q)
+//     if err != nil || q.QuestionText == "" || q.CorrectOption == "" {
+//         http.Error(w, "Invalid input", http.StatusBadRequest)
+//         return
+//     }
+
+//     _, err = db.Exec(`
+//         INSERT INTO questions (question_text, option_a, option_b, option_c, option_d, correct_option)
+//         VALUES ($1, $2, $3, $4, $5, $6)`,
+//         q.QuestionText, q.OptionA, q.OptionB, q.OptionC, q.OptionD, strings.ToUpper(q.CorrectOption))
+
+//     if err != nil {
+//         log.Println("Insert error:", err)
+//         http.Error(w, "Failed to insert question", http.StatusInternalServerError)
+//         return
+//     }
+
+//     json.NewEncoder(w).Encode(map[string]string{"message": "Question added"})
+// }
+
 func createQuestionHandler(w http.ResponseWriter, r *http.Request) {
     token := r.URL.Query().Get("token")
-    username, isStaff, err := validateToken(token)
+    _, isStaff, err := validateToken(token)
     if err != nil || !isStaff {
         http.Error(w, "Unauthorized", http.StatusUnauthorized)
         return
@@ -94,6 +123,7 @@ func createQuestionHandler(w http.ResponseWriter, r *http.Request) {
 
     json.NewEncoder(w).Encode(map[string]string{"message": "Question added"})
 }
+
 
 func listQuestionsHandler(w http.ResponseWriter, r *http.Request) {
     rows, err := db.Query(`
@@ -194,7 +224,7 @@ func submitHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    connStr := "host=localhost port=5432 user=auth_service_user password=yourpassword dbname=auth_service_db sslmode=disable"
+    connStr := "host=localhost port=5432 user=test_service_user password=yourpassword dbname=test_service_db sslmode=disable"
     var err error
     db, err = sql.Open("postgres", connStr)
     if err != nil {
